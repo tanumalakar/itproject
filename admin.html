@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin - Works & Projects</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><a class="brand-link" href="index.html">TANU<span>.MK</span></a></div>
+  <a class="admin-link" href="index.html">← View Works</a>
+</header>
+
+<main class="container narrow">
+<section class="form-head">
+  <p class="eyebrow">FIREBASE ADMIN</p>
+  <h1>Add New Work</h1>
+  <p>Fill in the form, choose an image and press Publish. The project will be saved online automatically.</p>
+</section>
+
+<section class="card form-card">
+  <label>Project Title
+    <input id="title" required maxlength="120" placeholder="e.g. Student Support Chatbot">
+  </label>
+  <label>Category
+    <input id="category" maxlength="60" placeholder="e.g. AI / Web / Software">
+  </label>
+  <label>Project / Work Link
+    <input id="link" type="url" placeholder="https://example.com">
+  </label>
+  <label>Project Image
+    <input id="image" type="file" accept="image/*">
+  </label>
+  <div id="previewBox" class="image-preview" hidden>
+    <img id="preview" alt="Preview">
+    <span id="fileName"></span>
+  </div>
+  <label>Description
+    <textarea id="description" rows="7" maxlength="2000" placeholder="Write your project description..."></textarea>
+  </label>
+  <button id="publish" class="primary" type="button">🚀 Publish Project</button>
+  <p id="status" class="status"></p>
+</section>
+
+<section class="setup-note">
+<h3>First-time Firebase setup</h3>
+<ol>
+<li>Create a Firebase project.</li>
+<li>Create a Firestore Database.</li>
+<li>Create a Storage bucket.</li>
+<li>Register a Web App and copy its Firebase config into the marked area in <code>firebase-config.js</code>.</li>
+<li>Open this Admin page and publish your projects.</li>
+</ol>
+<p><strong>After setup:</strong> you only use this page. You do not need to edit <code>works.json</code> or upload images to GitHub every time.</p>
+</section>
+</main>
+
+<script type="module">
+import { db, storage, firebaseReady } from "./firebase-config.js";
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+const $ = id => document.getElementById(id);
+$("image").addEventListener("change", () => {
+  const f = $("image").files[0];
+  if (!f) { $("previewBox").hidden = true; return; }
+  $("preview").src = URL.createObjectURL(f);
+  $("fileName").textContent = f.name;
+  $("previewBox").hidden = false;
+});
+
+$("publish").addEventListener("click", async () => {
+  if (!firebaseReady) {
+    $("status").textContent = "Firebase is not configured yet. Open firebase-config.js and add your Firebase config.";
+    return;
+  }
+
+  const title = $("title").value.trim();
+  const category = $("category").value.trim();
+  const link = $("link").value.trim();
+  const description = $("description").value.trim();
+  const file = $("image").files[0];
+
+  if (!title || !description || !file) {
+    $("status").textContent = "Please enter title, description and choose an image.";
+    return;
+  }
+
+  const btn = $("publish");
+  btn.disabled = true;
+  btn.textContent = "Publishing...";
+  $("status").textContent = "Uploading image and saving project...";
+
+  try {
+    const safe = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, "-");
+    const imageRef = ref(storage, `works/${Date.now()}-${safe}`);
+    await uploadBytes(imageRef, file);
+    const imageUrl = await getDownloadURL(imageRef);
+
+    await addDoc(collection(db, "works"), {
+      title, category, link, description,
+      image_url: imageUrl,
+      created_at: serverTimestamp()
+    });
+
+    $("status").textContent = "✅ Published successfully! It should now appear on the website.";
+    $("title").value = "";
+    $("category").value = "";
+    $("link").value = "";
+    $("description").value = "";
+    $("image").value = "";
+    $("previewBox").hidden = true;
+  } catch (err) {
+    console.error(err);
+    $("status").textContent = "❌ Publish failed: " + (err.message || err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "🚀 Publish Project";
+  }
+});
+</script>
+</body>
+</html>

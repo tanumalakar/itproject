@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tanu Malakar - Works & Projects">
+  <title>Works & Projects</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">TANU<span>.MK</span></div>
+  <a class="admin-link" href="admin.html">+ Add Work</a>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <p class="eyebrow">PORTFOLIO / WORK ARCHIVE</p>
+    <h1>My Works & Projects</h1>
+    <p>Explore my latest IT projects, websites, technical solutions and professional work.</p>
+  </section>
+
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Search works..." aria-label="Search works">
+    <select id="category" aria-label="Filter by category">
+      <option value="">All categories</option>
+    </select>
+  </div>
+
+  <section id="works" class="grid"></section>
+  <div id="empty" class="empty" hidden>No works found.</div>
+</main>
+
+<footer>© <span id="year"></span> Tanu Malakar. All rights reserved.</footer>
+<script src="app.js"></script>
+</body>
+</html>

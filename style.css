@@ -1,0 +1,57 @@
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#142033;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.topbar{height:72px;border-bottom:1px solid #e8edf3;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:#fff;position:sticky;top:0;z-index:5}
+.brand,.brand-link{font-weight:900;letter-spacing:.08em;font-size:20px;text-decoration:none;color:#142033}
+.brand span,.brand-link span{color:#1486ff}
+.admin-link{color:#126bd6;text-decoration:none;font-weight:700;border:1px solid #d8e6f7;padding:10px 16px;border-radius:10px}
+.container{width:min(1120px,88%);margin:auto}
+.hero{padding:76px 0 36px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;color:#1486ff}
+.hero h1,.form-head h1{font-size:clamp(36px,6vw,64px);line-height:1.02;margin:12px 0}
+.hero p,.form-head p{color:#66758a;max-width:650px;font-size:17px;line-height:1.7}
+.toolbar{display:flex;gap:12px;margin:20px 0 30px}
+.toolbar input,.toolbar select,label input,label textarea{width:100%;border:1px solid #dce5ee;background:#fff;border-radius:12px;padding:13px 14px;font:inherit;outline:none}
+.toolbar input{flex:1}.toolbar select{max-width:220px}
+.toolbar input:focus,label input:focus,label textarea:focus{border-color:#6bb1ff;box-shadow:0 0 0 3px #eaf5ff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.work-card,.card{border:1px solid #e5eaf0;border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 8px 30px rgba(20,32,51,.05)}
+.work-card img{display:block;width:100%;height:220px;object-fit:cover;background:#f3f7fb}
+.work-body{padding:22px}.tag{font-size:11px;font-weight:800;color:#1486ff;text-transform:uppercase;letter-spacing:.1em}
+.work-body h2{margin:10px 0;font-size:22px}.work-body p{color:#69788c;line-height:1.65;min-height:78px}
+.view{color:#126bd6;text-decoration:none;font-weight:800}
+.empty{text-align:center;padding:70px;color:#718096}
+.narrow{max-width:780px}.form-head{padding:62px 0 24px}.form-card{padding:30px;overflow:visible}
+label{display:block;font-weight:800;margin:0 0 20px}label input,label textarea{display:block;margin-top:8px;font-weight:400}
+label textarea{resize:vertical}.primary{display:inline-block;border:0;background:#126bd6;color:#fff;border-radius:12px;padding:14px 22px;font-size:15px;font-weight:800;cursor:pointer;text-decoration:none}
+.primary:hover{background:#0b5dbf}.status{font-size:14px;color:#126bd6;margin-top:15px}
+.setup-note{margin:20px 0 60px;padding:18px;background:#f7fbff;border:1px solid #dceefe;border-radius:12px;color:#52657b;line-height:1.6}
+.setup-note code{background:#edf4fa;padding:2px 6px;border-radius:5px}
+footer{text-align:center;padding:55px 20px;color:#8291a4;border-top:1px solid #edf1f5;margin-top:70px}
+.error-box{grid-column:1/-1;padding:20px;border:1px solid #f0d2d2;background:#fff7f7;border-radius:12px;color:#a33}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.topbar{padding:0 5%}.hero{padding-top:50px}.toolbar{flex-direction:column}.toolbar select{max-width:none}.grid{grid-template-columns:1fr}.form-card{padding:20px}.work-card img{height:230px}}
+
+
+/* Easy Admin workflow */
+.admin-actions{display:flex;gap:10px;flex-wrap:wrap}
+.secondary,.danger{border:1px solid #d8d8d8;background:#fff;padding:11px 16px;border-radius:10px;cursor:pointer}
+.danger{color:#b42318;padding:8px 11px}
+.image-preview{display:flex;align-items:center;gap:14px;border:1px solid #e5e5e5;border-radius:12px;padding:10px;margin-top:-4px}
+.image-preview img{width:90px;height:70px;object-fit:cover;border-radius:8px}
+.image-preview p{margin:.25rem 0 0;color:#777;font-size:.85rem}
+.list-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.list-head h2{margin:0}
+#count{min-width:28px;height:28px;border-radius:99px;display:grid;place-items:center;background:#111;color:#fff;font-size:.85rem}
+.draft-list{display:grid;gap:10px}
+.draft-item{display:flex;align-items:center;gap:12px;border:1px solid #e5e5e5;border-radius:12px;padding:10px}
+.draft-item img{width:70px;height:55px;object-fit:cover;border-radius:8px}
+.draft-info{display:grid;gap:3px;flex:1;min-width:0}
+.draft-info strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.draft-info span,.draft-info small{color:#777}
+.muted{color:#777}
+.setup-note code{background:#f1f1f1;padding:2px 5px;border-radius:4px}
+@media(max-width:600px){.draft-item{align-items:flex-start}.draft-item .danger{margin-left:auto}.draft-info{max-width:52vw}}
+
+.admin-actions{display:flex;gap:10px;flex-wrap:wrap}
+.image-preview{display:flex;align-items:center;gap:12px;border:1px solid #e5e5e5;border-radius:12px;padding:10px;margin-top:-5px}
+.image-preview img{width:90px;height:70px;object-fit:cover;border-radius:8px}
+.status{margin-top:12px}
